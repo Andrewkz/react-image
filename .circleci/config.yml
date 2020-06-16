@@ -1,14 +1,50 @@
-orbs: # declare what orbs we are going to use
-  node: circleci/node@2.0.2 # the node orb provides common node-related configuration
-
-version: 2.1 # using 2.1 provides access to orbs and other features
-
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - dependencies-
+      - run:
+          name: Install
+          command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-{{ checksum "yarn.lock" }}
+  test:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - dependencies-
+      - run:
+          name: Install
+          command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: ESLint
+          command: yarn lint
 workflows:
-  matrix-tests:
+  version: 2
+  build_and_test:
     jobs:
-      - node/test:
-          version: 13.11.0
-      - node/test:
-          version: 12.16.0
-      - node/test:
-          version: 10.19.0
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: gh-pages
