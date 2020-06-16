@@ -6,4 +6,3 @@ lib/
 coverage/
 *.log*
 .vscode
-yarn.lock
