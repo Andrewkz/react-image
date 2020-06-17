@@ -6,52 +6,14 @@ orbs:
 jobs:
   build:
     executor:
-      name: win/vs2019
+      name: win/default
       shell: powershell.exe
-    docker:
-      - image: circleci/node:latest
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "yarn.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - dependencies-
+      - run: systeminfo
       - run:
-          name: Install
-          command: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-          key: dependencies-{{ checksum "yarn.lock" }}
-  test:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "yarn.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - dependencies-
-      - run:
-          name: Install
-          command: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-          key: dependencies-{{ checksum "yarn.lock" }}
-      - run:
-          name: ESLint
-          command: yarn lint
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-          filters:
-            branches:
-              ignore: gh-pages
+          name: "Check docker"
+          shell: powershell.exe
+          command: |
+            docker info
+            docker run hello-world:nanoserver-1809
