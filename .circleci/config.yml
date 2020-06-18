@@ -1,9 +1,8 @@
 version: 2.1
-orbs:
-  win: circleci/windows@2.2.0
 jobs:
   build:
-    executor: win/default
+    docker:
+      - image: 'circleci/node:latest'
     steps:
       - checkout
-      - run: 'echo "Hello, Windows"'
+      - run: echo 'hello world'
