@@ -1,11 +1,9 @@
 version: 2.1
-
 orbs:
-  win: circleci/windows@1.0.0
-
+  win: circleci/windows@2.2.0
 jobs:
-  build-windows:
-    executor: win/vs2019
+  build:
+    executor: win/default
     steps:
       - checkout
-      - run: echo 'Hello, Windows'
+      - run: 'echo "Hello, Windows"'
