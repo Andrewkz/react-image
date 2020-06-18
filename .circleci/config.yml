@@ -4,16 +4,8 @@ orbs:
   win: circleci/windows@1.0.0
 
 jobs:
-  build:
-    executor:
-      name: win/default
-      shell: powershell.exe
+  build-windows:
+    executor: win/vs2019
     steps:
       - checkout
-      - run: systeminfo
-      - run:
-          name: "Check docker"
-          shell: powershell.exe
-          command: |
-            docker info
-            docker run hello-world:nanoserver-1809
+      - run: Write-Host 'Hello, Windows'
