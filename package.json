@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "rollup -c -w -o dist/react-image.js",
     "clean": "rimraf lib dist es coverage",
-    "lint": "eslint src",
+    "lint": "yarn add eslint -g && eslint src",
     "coverage": "yarn lint",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --extensions '.ts,.tsx'",
     "build:es": "cross-env babel src --out-dir es --extensions '.ts,.tsx'",
