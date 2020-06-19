@@ -20,11 +20,12 @@
     "build:ts:lib": "tsc -p tsconfig.lib.json",
     "build": "run-s build:* build:*:*",
     "prebuild": "yarn clean",
+    "test": "jest -v",
     "pretest": "yarn lint && yarn build",
     "prepare": "yarn test",
     "prepublishOnly": "cd ../demo && yarn deploy",
     "storybook": "start-storybook -s ./static -p 6006",
-    "build-storybook": "build-storybook",
+    "build-storybook": "rm -rf ./dist & build-storybook -c .storybook -o dist",
     "deploy-storybook": "yarn build-storybook && storybook-to-ghpages -- --existing-output-dir=dist"
   },
   "devDependencies": {
