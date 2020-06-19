@@ -20,7 +20,6 @@
     "build:ts:lib": "tsc -p tsconfig.lib.json",
     "build": "run-s build:* build:*:*",
     "prebuild": "yarn clean",
-    "test": "jest -v",
     "pretest": "yarn lint && yarn build",
     "prepare": "yarn test",
     "prepublishOnly": "cd ../demo && yarn deploy",

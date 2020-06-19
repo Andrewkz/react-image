@@ -6,3 +6,4 @@ lib/
 coverage/
 *.log*
 .vscode
+storybook-static/
