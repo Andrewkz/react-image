@@ -14,7 +14,7 @@ const imageElement: CSSProperties = {
 }
 
 const ImageList = (): any => {
-  const exampleArr = new Array(100).fill(img1)
+  const exampleArr = new Array(200).fill(img1)
   return (
     exampleArr.map((item, index) => {
       return (

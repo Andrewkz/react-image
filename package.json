@@ -25,7 +25,8 @@
     "prepare": "yarn test",
     "prepublishOnly": "cd ../demo && yarn deploy",
     "storybook": "start-storybook -s ./static -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "yarn build-storybook && storybook-to-ghpages -- --existing-output-dir=dist"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
@@ -45,6 +46,7 @@
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.19",
+    "@storybook/storybook-deployer": "^2.8.6",
     "@types/jest": "^25.2.3",
     "@types/node": "^14.0.12",
     "@types/react": "^16.9.35",
