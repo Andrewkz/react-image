@@ -10,6 +10,11 @@ module.exports = function({ config }) {
           loader: require.resolve('react-docgen-typescript-loader'),
         },
       ],
+    },
+    {
+      test: /\.stories\.(ts|tsx)?$/,
+      loaders: [require.resolve('@storybook/source-loader')],
+      enforce: 'pre',
     }
   );
   config.resolve.extensions.push('.ts', '.tsx');
