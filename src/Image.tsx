@@ -1,16 +1,16 @@
-import React,{useEffect, useRef, CSSProperties} from 'react'
+import React, { useEffect, useRef, CSSProperties } from 'react';
 
 interface info {
-	src: string
-	imgStyle?: CSSProperties
-	alt?: string
+	src: string;
+	imgStyle?: CSSProperties;
+	alt?: string;
 }
 
-export const Image: React.FC<info> = ({src, imgStyle, alt}) => {
-	const imgRef = useRef<HTMLImageElement>(null)
+export const Image: React.FC<info> = ({ src, imgStyle, alt }) => {
+	const imgRef = useRef<HTMLImageElement>(null);
 
 	useEffect(() => {
-		const target = imgRef.current
+		const target = imgRef.current;
 		if (target === null) {
 			return;
 		}
