@@ -6,7 +6,7 @@ interface info {
 	alt?: string
 }
 
-export const Image: React.FC<info> = ({ src, imgStyle, alt }) => {
+export const Image: React.FC<info> = ({src, imgStyle, alt}) => {
 	const imgRef = useRef<HTMLImageElement>(null);
 
 	useEffect(() => {
