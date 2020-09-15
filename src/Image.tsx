@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, CSSProperties } from 'react';
+import React,{useEffect, useRef, CSSProperties} from 'react'
 
 interface info {
 	src: string
