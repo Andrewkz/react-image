@@ -7,10 +7,10 @@ interface info {
 }
 
 export const Image: React.FC<info> = ({src, imgStyle, alt}) => {
-	const imgRef = useRef<HTMLImageElement>(null);
+	const imgRef = useRef<HTMLImageElement>(null)
 
 	useEffect(() => {
-		const target = imgRef.current;
+		const target = imgRef.current
 		if (target === null) {
 			return;
 		}
