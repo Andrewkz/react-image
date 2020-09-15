@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "loose": true }],
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-typescript",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    "@babel/transform-react-jsx"
+  ]
+}
