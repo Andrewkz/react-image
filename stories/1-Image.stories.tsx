@@ -37,7 +37,12 @@ const ImageList = () => {
 		<div style={divElement}>
 			{imageSrcList.map((item, index) => {
 				return (
-					<Image key={index} imgStyle={imageElement} src={item} alt=""></Image>
+					<Image
+						key={index}
+						imgStyle={imageElement}
+						src={item}
+						alt="测试"
+					></Image>
 				);
 			})}
 		</div>

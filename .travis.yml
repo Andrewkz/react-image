@@ -4,7 +4,7 @@ node_js:
 cache: yarn
 script:
   - yarn prepare
-  - yarn lint
+  - yarn pretest
   # - yarn build-storybook
 after_success:
   - yarn build-storybook
@@ -15,6 +15,3 @@ deploy:
   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
   on:
     branch: master
-notifications:
-  slack: in2:t4HfbJOtRL7uekgIPh2DUIKb
-  email: false
