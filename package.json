@@ -24,8 +24,8 @@
     "pretest": "yarn lint && yarn build",
     "prepare": "yarn test",
     "storybook": "start-storybook -s ./static -p 6006",
-    "build-storybook": "rm -rf ./dist & build-storybook -c .storybook -o dist",
-    "deploy-storybook": "yarn build-storybook && storybook-to-ghpages -- --existing-output-dir=dist"
+    "build-storybook": "rm -rf example & build-storybook -c .storybook -o example",
+    "deploy-storybook": "yarn build-storybook && storybook-to-ghpages -- --existing-output-dir=example"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
