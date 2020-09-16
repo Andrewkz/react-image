@@ -1,0 +1,51 @@
+{
+	"root": true,
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true,
+			"modules": true
+		}
+	},
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"react-app",
+		"prettier",
+		"eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+	],
+	"plugins": ["prettier", "react", "react-hooks"],
+	// extends: ['prettier', 'eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended'],
+	// globals: {
+	//   Atomics: 'readonly',
+	//   SharedArrayBuffer: 'readonly',
+	//   _: true,
+	//   $: true,
+	// },
+	// settings: {
+	//   react: {
+	//     pragma: 'React',
+	//     version: 'detect',
+	//   },
+	// },
+	"rules": {
+		"prettier/prettier": ["error"],
+		"generator-star-spacing": "off",
+		"no-debugger": "off",
+    "react/jsx-uses-react": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+		"react/jsx-uses-vars": "error",
+		"react/no-find-dom-node": "off",
+		"react/prop-types": "off",
+		"no-console": "off",
+		"react/no-children-prop": "off",
+		"space-before-function-paren": 0
+	}
+}

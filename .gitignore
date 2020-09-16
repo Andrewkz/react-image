@@ -1,9 +1,7 @@
 .DS_Store
 node_modules/
 dist/
-es/
-lib/
 coverage/
 *.log*
 .vscode
-storybook-static/
+example/

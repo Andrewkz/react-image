@@ -1,4 +1,3 @@
 dist/
-storybook-static/
+example/
 package.json
-coverage
