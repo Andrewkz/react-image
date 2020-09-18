@@ -4,6 +4,7 @@ node_js:
 cache: yarn
 script:
   - yarn prepare
+  - yarn prebuild
   - yarn pretest
   # - yarn build-storybook
 after_success:

@@ -11,7 +11,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
-		"noImplicitAny": true,
+		"noImplicitAny": false,
+		"removeComments": true,
+		"noLib": false,
 		"importHelpers": true,
 		"strictNullChecks": true,
 		"suppressImplicitAnyIndexErrors": true,
@@ -23,11 +25,10 @@
 		"emitDeclarationOnly": true,
 		"outDir": "dist",
 		"strictPropertyInitialization": false,
-		"strict": true,
 		"preserveSymlinks": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": false
 	},
-	"include": ["src", "template"],
-	"exclude": ["node_modules", "dist", "stories"]
+	"include": ["src", "template", "stories"],
+	"exclude": ["node_modules", "dist"]
 }

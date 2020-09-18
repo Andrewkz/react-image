@@ -1,3 +1,3 @@
-import { Image } from './Image';
+import { LazyImage } from './LazyImage';
 
-export { Image };
+export { LazyImage };
