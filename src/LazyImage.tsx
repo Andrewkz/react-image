@@ -25,6 +25,9 @@ export const LazyImage: React.FC<Props> = (props) => {
 		let nodeMap = new WeakMap<NodeListOf<Element>, NodeListOf<Element>>();
 
 		const matches = root.current.querySelectorAll('img[name=lazy]');
+		if (matches.length) {
+			console.warn('Could not find img tags in children');
+		}
 		matchMap.set(matches, matches);
 		const childrenNode = Array.prototype.slice.call(matchMap.get(matches));
 		nodeMap.set(childrenNode, childrenNode);
