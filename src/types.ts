@@ -7,8 +7,9 @@ export type ObserverOptions = {
 export type Props = {
 	alt?: string;
 	options?: ObserverOptions;
-	style?: Object;
+	style?: Record<string, unknown>;
 	placeholder?: string;
+	className?: string;
 	errorImage?: string;
 };
 
@@ -20,9 +21,10 @@ export type IProps = {
 	url: string;
 	placeholder?: string;
 	errorImage?: string;
+	className?: string;
 	onLoad?: () => void;
 	options?: ObserverOptions;
-	style?: Object;
+	style?: Record<string, unknown>;
 };
 
 export type ImgProps = JSX.IntrinsicElements['img'] &

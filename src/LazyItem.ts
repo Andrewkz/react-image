@@ -19,7 +19,7 @@ const images = new WeakMap<
 	{ observer: IntersectionObserver; options: IProps }
 >();
 
-const LazyItem = (props) => {
+const LazyItem: React.FC<IProps> = (props) => {
 	const currentRef = useRef<HTMLImageElement>(null);
 
 	useLayoutEffect(() => {

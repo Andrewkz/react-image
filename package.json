@@ -6,7 +6,7 @@
   "jsnext:main": "lazyload-image.esm.js",
   "module": "lazyload-image.esm.js",
   "unpkg": "lazyload-image.min.js",
-  "author": "andrew",
+  "author": "andrew <andrew.k.zheng@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/Andrewkz/react-image"

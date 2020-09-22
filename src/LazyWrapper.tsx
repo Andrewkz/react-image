@@ -8,13 +8,16 @@ const defaultObserverOptions: ObserverOptions = {
 	threshold: 0,
 };
 
-const nodeObject = new Object();
+const nodeObject = Object.create({});
 
 const LazyWrapper: React.FC<Props> = (props) => {
 	const root = useRef<HTMLDivElement>(null);
 	useLayoutEffect(() => {
 		if (!root.current) return;
-		let nodeMap = new WeakMap<Object, NodeListOf<HTMLImageElement>>();
+		const nodeMap = new WeakMap<
+			Record<string, unknown>,
+			NodeListOf<HTMLImageElement>
+		>();
 
 		const childrenNode: NodeListOf<HTMLImageElement> = Array.prototype.slice.call(
 			root.current.querySelectorAll('img[name=lazy]'),
@@ -33,7 +36,7 @@ const LazyWrapper: React.FC<Props> = (props) => {
 							entry.target.getAttribute('name') === 'lazy',
 					)
 					.forEach((entry: IntersectionObserverEntry) => {
-						let element = entry.target;
+						const element = entry.target;
 						if (entry.isIntersecting || entry.intersectionRatio > 0) {
 							const src = entry.target.getAttribute('data-src') as string;
 

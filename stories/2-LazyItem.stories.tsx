@@ -1,6 +1,5 @@
 import React from 'react';
-// import { LazyItem } from '../src/index';
-import { LazyItem } from '../dist/lazyload-image.esm';
+import { LazyItem } from '../src/index';
 import loading from '../static/loading.svg';
 import './app.css';
 import 'normalize.css';
