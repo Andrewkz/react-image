@@ -6,11 +6,29 @@
   "jsnext:main": "lazyload-image.esm.js",
   "module": "lazyload-image.esm.js",
   "unpkg": "lazyload-image.min.js",
-  "author": "andrew <andrew.k.zheng@gmail.com>",
+  "author": {
+    "name": "andrew",
+    "email": "andrew.k.zheng@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Andrewkz/react-image/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Andrewkz/react-image"
   },
+  "keywords": [
+    "lazyload",
+    "react lazyload image",
+    "react ts hook lazyload image",
+    "react lazyload component",
+    "lazy"
+  ],
+  "readmeFilename": "README.md",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development rollup -c -w",
