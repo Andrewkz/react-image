@@ -4,6 +4,7 @@ import {
 	IntersectionObserverEntryType,
 	IProps,
 } from './types';
+import { loadImage, call, isNull, setImage } from './utils/index';
 
 const defaultObserverOptions: ObserverOptions = {
 	root: undefined,
@@ -14,81 +15,48 @@ const defaultObserverOptions: ObserverOptions = {
 const observerKeys: ObserverOptions[] = [];
 const observers = new WeakMap<ObserverOptions, IntersectionObserver>();
 const images = new WeakMap<
-	Element,
+	HTMLImageElement,
 	{ observer: IntersectionObserver; options: IProps }
 >();
 
-export const LazyItem = (props) => {
+const LazyItem = (props) => {
 	const currentRef = useRef<HTMLImageElement>(null);
 
-	const call = (fn) => fn && fn();
-	const isNull = <T>(obj: T | null): obj is null => obj === null;
+	useLayoutEffect(() => {
+		if (isNull(currentRef.current)) return;
+		initElement(currentRef.current, props);
+	});
+
 	const createIntersectionObserver = (options: ObserverOptions) =>
 		new IntersectionObserver(loadingCallback, options);
 
-	function loadingCallback(entrys: IntersectionObserverEntryType[]) {
-		entrys
-			.filter((entry) => entry.isIntersecting)
+	function loadingCallback(entries: IntersectionObserverEntryType[]) {
+		entries
+			.filter((entry) => entry.isIntersecting || entry.intersectionRatio > 0)
 			.forEach((entry) => {
-				const target = entry.target as HTMLImageElement | HTMLDivElement;
-				const metaData = images.get(target);
-				if (!metaData) {
-					console.warn('Could not find meta data for image');
+				const target = entry.target as HTMLImageElement;
+				const metaInfo = images.get(target);
+				if (!metaInfo) {
+					console.warn('Could not find meta data for src');
 					return;
 				}
-				metaData.observer.unobserve(target);
-				loadImage(metaData.options.image)
+				metaInfo.observer.unobserve(target);
+				loadImage(metaInfo.options.url)
 					.catch(() => {
-						if (metaData.options.errorImage) {
-							return loadImage(metaData.options.errorImage);
+						if (metaInfo.options.errorImage) {
+							return loadImage(metaInfo.options.errorImage);
 						}
-						return Promise.resolve(metaData.options.defaultImage);
+						return Promise.resolve(metaInfo.options.placeholder);
 					})
-					.catch(() => metaData.options.defaultImage)
+					.catch(() => metaInfo.options.placeholder)
 					.then((imagePath: string) => {
 						setImage(target as HTMLImageElement, imagePath);
-						addCssClassName(target, 'lazy-loaded');
-						call(metaData.options.onLoaded);
+						call(metaInfo.options.onLoad);
 					});
 			});
 	}
 
-	function setImage(
-		element: HTMLImageElement | HTMLDivElement,
-		imagePath: string,
-	) {
-		if (isImageElement(element)) {
-			element.src = imagePath;
-		} else {
-			element.style.backgroundImage = `url('${imagePath}')`;
-		}
-	}
-
-	function loadImage(imagePath: string): Promise<string> {
-		return new Promise((resolve, reject) => {
-			const img = new Image();
-			img.src = imagePath;
-			img.onload = () => resolve(imagePath);
-			img.onerror = (err) => reject(err);
-		});
-	}
-
-	function isImageElement(
-		element: HTMLImageElement | HTMLDivElement,
-	): element is HTMLImageElement {
-		return element.nodeName.toLowerCase() === 'img';
-	}
-
-	function addCssClassName(
-		element: HTMLImageElement | HTMLDivElement,
-		cssClassName: string,
-	) {
-		if (!element.className.includes(cssClassName)) {
-			element.className += ` ${cssClassName}`;
-		}
-	}
-
-	function registerImageToLazyLoad(element: Element, metadata: IProps) {
+	function initElement(element: HTMLImageElement, metadata: IProps) {
 		const options = metadata.options || defaultObserverOptions;
 		let observerKey = observerKeys.find(
 			(oKey) =>
@@ -112,32 +80,14 @@ export const LazyItem = (props) => {
 		observer.observe(element);
 	}
 
-	useLayoutEffect(() => {
-		if (isNull(currentRef.current)) return;
-		registerImageToLazyLoad(currentRef.current, props);
-	});
-
-	const {
-		style: incomingStyle,
-		height,
-		width,
-		image,
-		errorImage,
-		options,
-		onLoaded,
-		defaultImage,
-	} = props;
-
-	const style = {
-		...incomingStyle,
-		backgroundImage: `url('${defaultImage}')`,
-		height,
-		width,
-	};
-
 	return createElement(
-		'div',
-		{ ...props, style, image, errorImage, options, onLoaded, ref: currentRef },
+		'img',
+		{
+			...props,
+			ref: currentRef,
+		},
 		props.children,
 	);
 };
+
+export default LazyItem;

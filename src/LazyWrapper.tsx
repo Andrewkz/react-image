@@ -1,5 +1,6 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import { ObserverOptions, Props } from './types';
+import { loadImage } from './utils/index';
 
 const defaultObserverOptions: ObserverOptions = {
 	root: null,
@@ -7,30 +8,21 @@ const defaultObserverOptions: ObserverOptions = {
 	threshold: 0,
 };
 
-export const LazyImage: React.FC<Props> = (props) => {
+const nodeObject = new Object();
+
+const LazyWrapper: React.FC<Props> = (props) => {
 	const root = useRef<HTMLDivElement>(null);
-
-	function loadImage(imagePath: string): Promise<string> {
-		return new Promise((resolve, reject) => {
-			const img = new Image();
-			img.src = imagePath;
-			img.onload = () => resolve(imagePath);
-			img.onerror = (err) => reject(err);
-		});
-	}
-
 	useLayoutEffect(() => {
 		if (!root.current) return;
-		let matchMap = new WeakMap<NodeListOf<Element>, NodeListOf<Element>>();
-		let nodeMap = new WeakMap<NodeListOf<Element>, NodeListOf<Element>>();
+		let nodeMap = new WeakMap<Object, NodeListOf<HTMLImageElement>>();
 
-		const matches = root.current.querySelectorAll('img[name=lazy]');
-		if (matches.length) {
-			console.warn('Could not find img tags in children');
+		const childrenNode: NodeListOf<HTMLImageElement> = Array.prototype.slice.call(
+			root.current.querySelectorAll('img[name=lazy]'),
+		);
+		if (!childrenNode.length) {
+			return console.error('Could not find img tags in children');
 		}
-		matchMap.set(matches, matches);
-		const childrenNode = Array.prototype.slice.call(matchMap.get(matches));
-		nodeMap.set(childrenNode, childrenNode);
+		nodeMap.set(nodeObject, childrenNode);
 
 		if (!window.IntersectionObserver) require('intersection-observer');
 		const observer = new IntersectionObserver(
@@ -38,15 +30,20 @@ export const LazyImage: React.FC<Props> = (props) => {
 				entries
 					.filter(
 						(entry: IntersectionObserverEntry) =>
-							(entry.target as HTMLImageElement).name === 'lazy',
+							entry.target.getAttribute('name') === 'lazy',
 					)
 					.forEach((entry: IntersectionObserverEntry) => {
 						let element = entry.target;
 						if (entry.isIntersecting || entry.intersectionRatio > 0) {
 							const src = entry.target.getAttribute('data-src') as string;
+
 							loadImage(src)
 								.catch((err) => {
 									element.setAttribute('src', '');
+									if (props.errorImage) {
+										return loadImage(props.errorImage);
+									}
+									return Promise.resolve(props.placeholder);
 								})
 								.then((res: string) => {
 									element.setAttribute('src', res);
@@ -55,14 +52,15 @@ export const LazyImage: React.FC<Props> = (props) => {
 									observer.unobserve(element);
 								});
 						} else {
-							element.setAttribute('src', props.loading || '');
+							element.setAttribute('src', props.placeholder || '');
 						}
 					});
 			},
 			props.options || defaultObserverOptions,
 		);
+
 		Array.prototype.slice
-			.call(nodeMap.get(childrenNode) as NodeListOf<HTMLImageElement>)
+			.call(nodeMap.get(nodeObject) as NodeListOf<HTMLImageElement>)
 			.forEach((image: HTMLImageElement) => {
 				observer.observe(image);
 			});
@@ -70,3 +68,5 @@ export const LazyImage: React.FC<Props> = (props) => {
 
 	return <div ref={root}>{props.children}</div>;
 };
+
+export default LazyWrapper;

@@ -5,11 +5,11 @@ export type ObserverOptions = {
 };
 
 export type Props = {
-	defaultImage?: string;
 	alt?: string;
 	options?: ObserverOptions;
 	style?: Object;
-	loading?: string;
+	placeholder?: string;
+	errorImage?: string;
 };
 
 export type IntersectionObserverEntryType = IntersectionObserverEntry & {
@@ -17,10 +17,10 @@ export type IntersectionObserverEntryType = IntersectionObserverEntry & {
 };
 
 export type IProps = {
-	defaultImage: string;
-	image: string;
+	url: string;
+	placeholder?: string;
 	errorImage?: string;
-	onLoaded?: () => void;
+	onLoad?: () => void;
 	options?: ObserverOptions;
 	style?: Object;
 };
