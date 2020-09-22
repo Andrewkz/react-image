@@ -1,3 +1,4 @@
-import { Image } from './Image';
+import LazyWrapper from './LazyWrapper';
+import LazyItem from './LazyItem';
 
-export { Image };
+export { LazyWrapper, LazyItem };

@@ -1,23 +1,41 @@
 {
   "name": "react-image-to-lazyload",
-  "version": "1.0.0",
+  "version": "2.0.2",
   "description": "about image react component",
   "main": "lazyload-image.cjs.js",
-  "jsnext:main": "lazyload-image.esm.j",
-  "module": "lazyload-image.esm.j",
+  "jsnext:main": "lazyload-image.esm.js",
+  "module": "lazyload-image.esm.js",
   "unpkg": "lazyload-image.min.js",
-  "author": "andrew",
+  "author": {
+    "name": "andrew",
+    "email": "andrew.k.zheng@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Andrewkz/react-image/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Andrewkz/react-image"
   },
+  "keywords": [
+    "lazyload",
+    "react lazyload image",
+    "react ts hook lazyload image",
+    "react lazyload component",
+    "lazy"
+  ],
+  "readmeFilename": "README.md",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development rollup -c -w",
     "lint": "eslint src",
     "build": "run-s build:*",
     "build:dist": "cross-env NODE_ENV=production rollup -c",
-    "build:ts": "tsc -p .",
+    "build:ts": "tsc -p . && rm -rf dist/stories",
     "test": "jest -v",
     "prebuild": "rm -rf dist",
     "pretest": "yarn lint && yarn build",

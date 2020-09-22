@@ -30,7 +30,15 @@ const getBabelOptions = ({ useESModules }) => ({
 		],
 	],
 	extensions,
-	plugins: [['@babel/transform-runtime', { regenerator: false, useESModules }]],
+	plugins: [
+		[
+			'@babel/transform-runtime',
+			{
+				regenerator: false,
+				useESModules,
+			},
+		],
+	],
 });
 
 export default [
@@ -43,9 +51,19 @@ export default [
 		},
 		external: Object.keys(globals),
 		plugins: [
-			resolve({ extensions }),
-			typescriptPlugin({ exclude: 'node_modules/**', typescript }),
-			babel(getBabelOptions({ useESModules: true })),
+			resolve({
+				extensions,
+			}),
+			commonjs(),
+			typescriptPlugin({
+				exclude: 'node_modules/**',
+				typescript,
+			}),
+			babel(
+				getBabelOptions({
+					useESModules: true,
+				}),
+			),
 		],
 	},
 	{
@@ -57,9 +75,19 @@ export default [
 		},
 		external: Object.keys(globals),
 		plugins: [
-			resolve({ extensions }),
-			typescriptPlugin({ exclude: 'node_modules/**', typescript }),
-			babel(getBabelOptions({ useESModules: false })),
+			resolve({
+				extensions,
+			}),
+			commonjs(),
+			typescriptPlugin({
+				exclude: 'node_modules/**',
+				typescript,
+			}),
+			babel(
+				getBabelOptions({
+					useESModules: false,
+				}),
+			),
 		],
 	},
 	{
@@ -72,15 +100,30 @@ export default [
 		},
 		external: Object.keys(globals),
 		plugins: [
-			resolve({ extensions }),
+			resolve({
+				extensions,
+			}),
 			commonjs(),
-			typescriptPlugin({ exclude: 'node_modules/**', typescript }),
-			babel(getBabelOptions({ useESModules: true })),
-			replace({ 'process.env.NODE_ENV': JSON.stringify(env) }),
+			typescriptPlugin({
+				exclude: 'node_modules/**',
+				typescript,
+			}),
+			babel(
+				getBabelOptions({
+					useESModules: true,
+				}),
+			),
+			replace({
+				'process.env.NODE_ENV': JSON.stringify(env),
+			}),
 			terser(),
 			isProd &&
 				uglify({
-					compress: { pure_getters: true, unsafe: true, unsafe_comps: true },
+					compress: {
+						pure_getters: true,
+						unsafe: true,
+						unsafe_comps: true,
+					},
 				}),
 		].filter(Boolean),
 	},
