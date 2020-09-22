@@ -51,7 +51,7 @@ const LazyItem: React.FC<IProps> = (props) => {
 					.catch(() => metaInfo.options.placeholder)
 					.then((imagePath: string) => {
 						setImage(target as HTMLImageElement, imagePath);
-						call(metaInfo.options.onLoad);
+						metaInfo.options.onLoad && call(metaInfo.options.onLoad);
 					});
 			});
 	}

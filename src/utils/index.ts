@@ -7,7 +7,8 @@ export function loadImage(imagePath: string): Promise<string> {
 	});
 }
 
-export const call = (fn: () => void): void => fn && fn();
+export const call = (fn: () => void | undefined): void | undefined =>
+	fn && fn();
 
 export const isNull = <T>(obj: T | null): obj is null => obj === null;
 
