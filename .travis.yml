@@ -8,7 +8,7 @@ script:
   - yarn pretest
   # - yarn build-storybook
 after_success:
-  - yarn build-storybook
+  - yarn deploy-storybook
 deploy:
   provider: pages
   local_dir: example
