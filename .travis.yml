@@ -5,8 +5,7 @@ cache: yarn
 script:
   - yarn prepare
   - yarn prebuild
-  - yarn pretest
-  # - yarn build-storybook
+  - yarn build
 after_success:
   - yarn deploy-storybook
 deploy:
