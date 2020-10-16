@@ -8,10 +8,11 @@ script:
   - yarn build
 after_success:
   - yarn build-storybook
-deploy:
-  provider: pages
-  local_dir: example
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  on:
-    branch: master
+  - yarn deploy-storybook
+# deploy:
+#   provider: pages
+#   local_dir: example
+#   skip_cleanup: true
+#   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+#   on:
+#     branch: master
