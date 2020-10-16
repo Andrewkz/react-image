@@ -6,8 +6,8 @@ script:
   - yarn prepare
   - yarn prebuild
   - yarn build
-# after_success:
-#   - yarn deploy-storybook
+after_success:
+  - yarn build-storybook
 deploy:
   provider: pages
   local_dir: example
