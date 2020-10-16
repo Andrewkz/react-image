@@ -22,9 +22,10 @@ const LazyWrapper: React.FC<Props> = (props) => {
 		const childrenNode: NodeListOf<HTMLImageElement> = Array.prototype.slice.call(
 			root.current.querySelectorAll('img[name=lazy]'),
 		);
-		if (!childrenNode.length) {
-			return console.error('Could not find img tags in children');
-		}
+
+		// if (!childrenNode.length) {
+		// 	return console.error('Could not find img tags in children');
+		// }
 		nodeMap.set(nodeObject, childrenNode);
 
 		if (!window.IntersectionObserver) require('intersection-observer');
@@ -41,7 +42,7 @@ const LazyWrapper: React.FC<Props> = (props) => {
 							const src = entry.target.getAttribute('data-src') as string;
 
 							loadImage(src)
-								.catch((err) => {
+								.catch(() => {
 									element.setAttribute('src', '');
 									if (props.errorImage) {
 										return loadImage(props.errorImage);
@@ -69,7 +70,14 @@ const LazyWrapper: React.FC<Props> = (props) => {
 			});
 	});
 
-	return <div ref={root}>{props.children}</div>;
+	return React.createElement(
+		'div',
+		{
+			...props,
+			ref: root,
+		},
+		props.children,
+	);
 };
 
 export default LazyWrapper;
