@@ -6,3 +6,5 @@ lib/
 stories/
 .storybook/
 example
+coverage/
+tes

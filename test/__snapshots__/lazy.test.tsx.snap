@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`first should render correctly 1`] = `
+<div
+  placeholder=""
+>
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+  <img
+    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+    name="lazy"
+  />
+</div>
+`;

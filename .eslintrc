@@ -21,18 +21,11 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "plugins": ["prettier", "react", "react-hooks"],
-  // extends: ['prettier', 'eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended'],
-  // globals: {
-  //   Atomics: 'readonly',
-  //   SharedArrayBuffer: 'readonly',
-  //   _: true,
-  //   $: true,
-  // },
   "settings": {
     "react": {
       "pragma": "React",
-      "version": "detect",
-    },
+      "version": "detect"
+    }
   },
   "rules": {
     "prettier/prettier": ["error"],

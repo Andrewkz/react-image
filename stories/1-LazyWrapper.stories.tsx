@@ -60,11 +60,9 @@ const ImageList = () => {
 	return (
 		<LazyWrapper placeholder={loading}>
 			{imageSrcList.concat(imageSrcList).map((item, index) => {
-				const dynamicProps = {
-					'data-src': item,
-					name: 'lazy',
-				};
-				return <img style={imageElement} key={index} {...dynamicProps} />;
+				return (
+					<img key={index} name="lazy" data-src={item} style={imageElement} />
+				);
 			})}
 		</LazyWrapper>
 	);

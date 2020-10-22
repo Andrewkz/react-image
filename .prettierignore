@@ -1,3 +1,5 @@
 dist/
 example/
 package.json
+coverage/
+test

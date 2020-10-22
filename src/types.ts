@@ -27,14 +27,8 @@ export type IProps = {
 	style?: Record<string, unknown>;
 };
 
-export type ImgProps = JSX.IntrinsicElements['img'] &
-	Props & {
-		height: number | string;
-		width: number | string;
-	};
-
-export type DivProps = JSX.IntrinsicElements['div'] &
-	Props & {
-		height?: number | string;
-		width?: number | string;
-	};
+// export type ImgProps = JSX.IntrinsicElements['img'] &
+// 	Props & {
+// 		height: number | string;
+// 		width: number | string;
+// 	};
