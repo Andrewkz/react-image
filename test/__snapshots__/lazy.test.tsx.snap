@@ -1,41 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`first should render correctly 1`] = `
-<div
-  placeholder=""
->
-  <img
-    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-    name="lazy"
-  />
-  <img
-    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-    name="lazy"
-  />
-  <img
-    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-    name="lazy"
-  />
-  <img
-    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-    name="lazy"
-  />
-  <img
-    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-    name="lazy"
-  />
-  <img
-    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-    name="lazy"
-  />
-  <img
-    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-    name="lazy"
-  />
-  <img
-    data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-    name="lazy"
-  />
+exports[`LazyItem should render correctly 1`] = `
+<img
+  alt=""
+/>
+`;
+
+exports[`LazyWrapper should render correctly 1`] = `
+<div>
   <img
     data-src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
     name="lazy"

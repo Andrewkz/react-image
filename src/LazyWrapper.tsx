@@ -1,6 +1,7 @@
-import React, { useRef, useLayoutEffect } from 'react';
-import { ObserverOptions, Props } from './types';
+import React, { useRef, useEffect, useCallback } from 'react';
+import { ObserverOptions, LazyWrapperProps } from './types';
 import { loadImage } from './utils/index';
+import 'intersection-observer';
 
 const defaultObserverOptions: ObserverOptions = {
 	root: null,
@@ -8,75 +9,80 @@ const defaultObserverOptions: ObserverOptions = {
 	threshold: 0,
 };
 
-const nodeObject = Object.create({});
-
-const LazyWrapper: React.FC<Props> = (props) => {
+const LazyWrapper: React.FC<LazyWrapperProps> = ({
+	placeholder,
+	errorImage,
+	options,
+	style,
+	className,
+	children,
+}) => {
 	const root = useRef<HTMLDivElement>(null);
-	useLayoutEffect(() => {
-		if (!root.current) return;
-		const nodeMap = new WeakMap<
-			Record<string, unknown>,
-			NodeListOf<HTMLImageElement>
-		>();
+	const observerRef = useRef<IntersectionObserver | null>(null);
 
-		const childrenNode: NodeListOf<HTMLImageElement> = Array.prototype.slice.call(
-			root.current.querySelectorAll('img[name=lazy]'),
-		);
+	const handleIntersection = useCallback(
+		(entries: IntersectionObserverEntry[]) => {
+			entries.forEach((entry: IntersectionObserverEntry) => {
+				if (entry.target.getAttribute('name') !== 'lazy') return;
+				if (!entry.isIntersecting && entry.intersectionRatio <= 0) {
+					if (!entry.target.getAttribute('src')) {
+						entry.target.setAttribute('src', placeholder || '');
+					}
+					return;
+				}
 
-		// if (!childrenNode.length) {
-		// 	return console.error('Could not find img tags in children');
-		// }
-		nodeMap.set(nodeObject, childrenNode);
+				const element = entry.target;
+				const src = element.getAttribute('data-src');
+				if (!src) return;
 
-		if (!window.IntersectionObserver) require('intersection-observer');
-		const observer = new IntersectionObserver(
-			(entries: IntersectionObserverEntry[]) => {
-				entries
-					.filter(
-						(entry: IntersectionObserverEntry) =>
-							entry.target.getAttribute('name') === 'lazy',
-					)
-					.forEach((entry: IntersectionObserverEntry) => {
-						const element = entry.target;
-						if (entry.isIntersecting || entry.intersectionRatio > 0) {
-							const src = entry.target.getAttribute('data-src') as string;
-
-							loadImage(src)
-								.catch(() => {
-									element.setAttribute('src', '');
-									if (props.errorImage) {
-										return loadImage(props.errorImage);
-									}
-									return Promise.resolve(props.placeholder);
-								})
-								.then((res: string) => {
-									element.setAttribute('src', res);
-									element.removeAttribute('name');
-									element.removeAttribute('data-src');
-									observer.unobserve(element);
-								});
-						} else {
-							element.setAttribute('src', props.placeholder || '');
+				loadImage(src)
+					.catch(() => {
+						element.setAttribute('src', '');
+						if (errorImage) {
+							return loadImage(errorImage);
+						}
+						return Promise.resolve(placeholder || '');
+					})
+					.then((res: string) => {
+						element.setAttribute('src', res);
+						element.removeAttribute('name');
+						element.removeAttribute('data-src');
+						if (observerRef.current) {
+							observerRef.current.unobserve(element);
 						}
 					});
-			},
-			props.options || defaultObserverOptions,
+			});
+		},
+		[placeholder, errorImage],
+	);
+
+	useEffect(() => {
+		if (!root.current) return;
+
+		const images = Array.from(
+			root.current.querySelectorAll<HTMLImageElement>('img[name=lazy]'),
 		);
 
-		Array.prototype.slice
-			.call(nodeMap.get(nodeObject) as NodeListOf<HTMLImageElement>)
-			.forEach((image: HTMLImageElement) => {
-				observer.observe(image);
-			});
-	});
+		if (!images.length) return;
 
-	return React.createElement(
-		'div',
-		{
-			...props,
-			ref: root,
-		},
-		props.children,
+		const observer = new IntersectionObserver(
+			handleIntersection,
+			options || defaultObserverOptions,
+		);
+		observerRef.current = observer;
+
+		images.forEach((image) => observer.observe(image));
+
+		return () => {
+			observer.disconnect();
+			observerRef.current = null;
+		};
+	}, [handleIntersection, options]);
+
+	return (
+		<div ref={root} style={style} className={className}>
+			{children}
+		</div>
 	);
 };
 
